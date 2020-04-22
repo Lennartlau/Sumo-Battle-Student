@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviour
     {
         //SpawnEnemyWave(waveNumber);
         //SpawnPowerup();
+
+        /// challenge: instantiate a new enemy game object
         //Instantiate(..., ..., ...);
     }
 
@@ -26,6 +28,7 @@ public class SpawnManager : MonoBehaviour
         //}
     }
 
+    /// challenge: spawn specified numberOfEnemies using Instantiate(...)
     void SpawnEnemyWave(int numberOfEnemies)
     {
         // [...]

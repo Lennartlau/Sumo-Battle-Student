@@ -1,6 +1,6 @@
 ﻿/// Hint: Commenting or uncommenting in VS
 /// On Mac: CMD + SHIFT + 7
-/// On Windows: CTRL + K -> CTRL + C
+/// On Windows: CTRL + K and then CTRL + C
 
 using UnityEngine;
 
@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         GameObject other = collision.gameObject;
+        /// challenge: when collision has tag "Enemy" and we have a powerup
+        /// get the enemyRigidbody and push the enemy away from the player
         if (true)
         {
             Rigidbody enemyRigidbody;
