@@ -4,43 +4,40 @@
 
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerX : MonoBehaviour
 {
     private Rigidbody playerRb;
     public float speed = 10f;
     public GameObject focalPoint;
 
-    public bool hasPowerup;
-    public float powerupStrength = 15f;
+    private bool hasPowerup;
+    public float powerupStrength = 20f;
     private int powerupTime = 7;
-    //public GameObject powerupIndicator;
+    public GameObject powerupIndicator;
 
     void Start()
     {
-        // looks in the (current) gameObject for component of type Rigidbody
         playerRb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        //powerupIndicator.transform.position = transform.position + new Vector3(0f, -0.5f, 0f);
+        powerupIndicator.transform.position = transform.position + new Vector3(0f, -0.5f, 0f);
     }
 
     void FixedUpdate()
     {
-        // gets the vertical user input from joystick/keyboard (w/s or up/down)
-        // as a float between -1 and 1
         float forwardInput = Input.GetAxis("Vertical");
-        // adds force to the player in the direction the camera is facing
         playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Powerup"))
+        // actually use other.CompareTag("Powerup) here
+        if (other.name.Contains("Powerup"))
         {
             hasPowerup = true;
-            //powerupIndicator.gameObject.SetActive(true);
+            powerupIndicator.gameObject.SetActive(true);
             Destroy(other.gameObject);
             CancelInvoke("PowerupCountdown"); // if we previously picked up an powerup
             Invoke("PowerupCountdown", powerupTime);
@@ -52,17 +49,17 @@ public class PlayerController : MonoBehaviour
         GameObject other = collision.gameObject;
         /// challenge: when other has tag "Enemy" and we have a powerup
         /// get the enemyRigidbody and push the enemy away from the player
-        if (true)
+        if (other.CompareTag("Enemy") && hasPowerup)
         {
-            Rigidbody enemyRigidbody;
-            Vector3 awayFromPlayer;
-            //enemyRigidbody.AddForce(..., ForceMode.Impulse);
+            Rigidbody enemyRigidbody = other.GetComponent<Rigidbody>();
+            Vector3 awayFromPlayer = other.transform.position - transform.position;
+            enemyRigidbody.AddForce(awayFromPlayer.normalized * powerupStrength, ForceMode.Impulse);
         }
     }
 
     void PowerupCountdown()
     {
         hasPowerup = false;
-        //powerupIndicator.gameObject.SetActive(false);
+        powerupIndicator.gameObject.SetActive(false);
     }
 }
