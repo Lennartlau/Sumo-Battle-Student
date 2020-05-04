@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyX : MonoBehaviour
 {
     public float speed = 8f;
     private Rigidbody enemyRb;
@@ -14,8 +14,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        // if the game object falls below -10 on the y-axis we gonna remove it
-        // from the game
         if (transform.position.y < -10)
         {
             Destroy(gameObject);

@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    public float RotationSpeed = 50f;
+    // public -> visible in inspector and other scripts
+    // private -> not visible in inspector and other scripts
+    public float rotationSpeed = 50.0f; // floating point numbers require 'f' at the end
 
     // Update is called once per frame
     void Update()
     {
+        // gets the horizontal user input from
+        // joystick/keyboard (a/d or left/right) as a float between -1 and 1
         float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up, horizontalInput * RotationSpeed * Time.deltaTime);
+        // rotates the focal point and all of it's attached children (main camera)
+        // requires an axis to be rotated around and a rotation angle
+        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
     }
 }
